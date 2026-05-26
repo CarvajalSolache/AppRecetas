@@ -18,11 +18,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DetalleRecetaActivity extends AppCompatActivity {
 
     private TextView tvNombre, tvIngredientes, tvPasos;
-    private TextView tvPorciones, tvTemporizador;
-    private Button btnMasPorciones, btnMenosPorciones;
+    private TextView tvTemporizador;
     private Button btnIniciarTimer, btnPausarTimer, btnCancelarTimer;
     private Button btnWhatsApp, btnVolver;
-    private int porciones = 1;
     private String ingredientesBase = "";
     private String nombre = "";
     private String pasos = "";
@@ -40,10 +38,7 @@ public class DetalleRecetaActivity extends AppCompatActivity {
         tvNombre = findViewById(R.id.tvNombre);
         tvIngredientes = findViewById(R.id.tvIngredientes);
         tvPasos = findViewById(R.id.tvPasos);
-        tvPorciones = findViewById(R.id.tvPorciones);
         tvTemporizador = findViewById(R.id.tvTemporizador);
-        btnMasPorciones = findViewById(R.id.btnMasPorciones);
-        btnMenosPorciones = findViewById(R.id.btnMenosPorciones);
         btnIniciarTimer = findViewById(R.id.btnIniciarTimer);
         btnPausarTimer = findViewById(R.id.btnPausarTimer);
         btnCancelarTimer = findViewById(R.id.btnCancelarTimer);
@@ -71,23 +66,7 @@ public class DetalleRecetaActivity extends AppCompatActivity {
                 ivImagen.setImageURI(android.net.Uri.parse(imagenUri));
             }
         }
-        tvPorciones.setText("Porciones: " + porciones);
         tvTemporizador.setText("30:00");
-
-        // Contador de porciones
-        btnMasPorciones.setOnClickListener(v -> {
-            porciones++;
-            actualizarPorciones();
-        });
-
-        btnMenosPorciones.setOnClickListener(v -> {
-            if (porciones > 1) {
-                porciones--;
-                actualizarPorciones();
-            } else {
-                Toast.makeText(this, "Mínimo 1 porción", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         // Temporizador
         // Un EditText donde el usuario escribe los minutos
@@ -134,12 +113,6 @@ public class DetalleRecetaActivity extends AppCompatActivity {
 
         // Volver
         btnVolver.setOnClickListener(v -> finish());
-    }
-
-    private void actualizarPorciones() {
-        tvPorciones.setText("Porciones: " + porciones);
-        // Muestra nota de porciones ajustadas
-        tvIngredientes.setText(ingredientesBase + "\n\n(Ajustado para " + porciones + " porción(es))");
     }
 
     private void iniciarTemporizador(long milisegundos) {
